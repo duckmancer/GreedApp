@@ -1,13 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://CharacterSheet.gd" type="Script" id=1]
 [ext_resource path="res://Roboto/Roboto-Black.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=2]
 size = 32
 font_data = ExtResource( 2 )
 
@@ -23,35 +19,20 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+focus_mode = 1
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="HPDisplay" type="Label" parent="Panel"]
-anchor_left = 0.039
-anchor_top = 0.065
-anchor_right = 0.111
-anchor_bottom = 0.129
-margin_left = -7.86364
-margin_top = -4.55191
-margin_right = 8.40835
-margin_bottom = 8.04809
+[node name="HPDisplay" type="LineEdit" parent="Panel"]
+margin_left = 51.0
+margin_top = 34.0
+margin_right = 270.0
+margin_bottom = 82.0
 custom_fonts/font = SubResource( 1 )
 text = "HP: 12/12"
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="HPInput" type="LineEdit" parent="Panel"]
-margin_left = 190.825
-margin_top = 30.0054
-margin_right = 296.825
-margin_bottom = 78.0054
-custom_fonts/font = SubResource( 2 )
-clear_button_enabled = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[connection signal="text_entered" from="Panel/HPInput" to="." method="_on_LineEdit_text_entered"]
+[connection signal="focus_entered" from="Panel/HPDisplay" to="." method="_on_HPDisplay_focus_entered"]
+[connection signal="focus_exited" from="Panel/HPDisplay" to="." method="_on_HPDisplay_focus_exited"]
+[connection signal="text_entered" from="Panel/HPDisplay" to="." method="_on_HPDisplay_text_entered"]

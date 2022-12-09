@@ -1,7 +1,6 @@
 extends Control
 
 onready var hp_display = $Panel/HPDisplay
-onready var hp_input = $Panel/HPInput
 
 var hp = 0 setget set_hp
 var max_hp = 0 setget set_max_hp
@@ -15,6 +14,22 @@ func update_hp_display():
 	label += "/"
 	label += String(max_hp)
 	hp_display.text = label
+	
+func apply_hp_input(new_text := ""):
+	hp_display.clear()
+	hp_display.release_focus()
+	if '/' in new_text:
+		var splits = new_text.split('/', false)
+		if splits.size() >= 2:
+			new_text = splits[0]
+			set_max_hp(int(splits[1]))
+	var new_hp = int(new_text)
+	if '+' in new_text or '-' in new_text:
+		new_hp = hp + new_hp
+	if new_hp != 0 or '0' in new_text:
+		set_hp(new_hp)
+	else:
+		update_hp_display()
 
 func set_hp(new_hp):
 	hp = min(max_hp, new_hp)
@@ -30,10 +45,13 @@ func _ready() -> void:
 	set_hp(max_hp)
 
 
-func _on_LineEdit_text_entered(new_text: String) -> void:
-	hp_input.clear()
-	var new_hp = int(new_text)
-	if '+' in new_text or '-' in new_text:
-		new_hp = hp + new_hp
-	if new_hp != 0 or '0' in new_text:
-		set_hp(new_hp)
+func _on_HPDisplay_text_entered(new_text: String) -> void:
+	apply_hp_input(new_text)
+
+
+func _on_HPDisplay_focus_entered() -> void:
+	hp_display.clear()
+
+
+func _on_HPDisplay_focus_exited() -> void:
+	apply_hp_input(hp_display.text)
