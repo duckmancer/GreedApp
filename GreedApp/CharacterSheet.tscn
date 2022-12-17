@@ -1,16 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://CharacterSheet.gd" type="Script" id=1]
-[ext_resource path="res://Roboto/Roboto-Black.ttf" type="DynamicFontData" id=2]
-
-[sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 2 )
+[ext_resource path="res://StatDisplay.tscn" type="PackedScene" id=1]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
@@ -25,14 +19,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HPDisplay" type="LineEdit" parent="Panel"]
-margin_left = 51.0
-margin_top = 34.0
-margin_right = 270.0
-margin_bottom = 82.0
-custom_fonts/font = SubResource( 1 )
-text = "HP: 12/12"
+[node name="HPDisplay" parent="Panel" instance=ExtResource( 1 )]
+margin_left = 43.9503
+margin_top = 35.9594
+margin_right = 263.95
+margin_bottom = 83.9594
+base_label = "HP: "
+max_val = 20
+cur_val = 20
 
-[connection signal="focus_entered" from="Panel/HPDisplay" to="." method="_on_HPDisplay_focus_entered"]
-[connection signal="focus_exited" from="Panel/HPDisplay" to="." method="_on_HPDisplay_focus_exited"]
-[connection signal="text_entered" from="Panel/HPDisplay" to="." method="_on_HPDisplay_text_entered"]
+[node name="ManaDisplay" parent="Panel" instance=ExtResource( 1 )]
+margin_left = 43.9503
+margin_top = 97.8894
+margin_right = 263.95
+margin_bottom = 145.889
+base_label = "Mana: "
+max_val = 5
+cur_val = 1
+capped = false
