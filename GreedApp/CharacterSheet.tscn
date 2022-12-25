@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://PointDisplay.tscn" type="PackedScene" id=1]
 [ext_resource path="res://StatDisplay.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Roboto/Roboto-Black.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://TurnDisplay.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -46,3 +59,25 @@ stat_label = "Defense"
 margin_top = 222.211
 margin_bottom = 266.211
 stat_label = "Power"
+
+[node name="TurnDisplay" type="Label" parent="Panel"]
+margin_left = 429.456
+margin_top = 37.7754
+margin_right = 748.456
+margin_bottom = 75.7754
+custom_fonts/font = SubResource( 1 )
+text = "Round 1 - Player Turn"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Panel/TurnDisplay"]
+margin_left = 363.705
+margin_top = -2.24493
+margin_right = 517.705
+margin_bottom = 41.7551
+custom_fonts/font = SubResource( 2 )
+text = "Next Turn"
+
+[connection signal="pressed" from="Panel/TurnDisplay/Button" to="Panel/TurnDisplay" method="_on_Button_pressed"]
